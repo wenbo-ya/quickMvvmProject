@@ -1,8 +1,9 @@
 package com.rk.quickmvvmproject.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import androidx.lifecycle.ViewModel
+
+import android.os.Handler
+import android.os.Message
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.rk.common.base.BaseMVVMActivitys
 import com.rk.quickmvvmproject.R

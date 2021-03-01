@@ -14,7 +14,7 @@ class MyApplication:Application() {
     companion object {
         @SuppressLint("StaticFieldLeak")
         lateinit var mApplicationContext: Context
-        const val  BASE_URL=""
+        const val  BASE_URL="https://www.baidu.com/"
     }
     override fun onCreate() {
         super.onCreate()
