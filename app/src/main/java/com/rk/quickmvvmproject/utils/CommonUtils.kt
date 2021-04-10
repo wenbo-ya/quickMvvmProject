@@ -5,10 +5,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.rk.quickmvvmproject.MyApplication
 
 
@@ -18,6 +20,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import org.json.JSONObject
@@ -33,7 +36,7 @@ fun ViewModel.toast(string: String?) {
 
 //延迟
 fun ViewModel.clickDelay(block: suspend () -> Unit, error: suspend (Throwable) -> Unit) =
-    GlobalScope.launch(Dispatchers.Main) {
+    viewModelScope.launch(Dispatchers.Main) {
         try {
             block()
         } catch (error: Throwable) {
@@ -80,15 +83,7 @@ fun Context.shareData(block: SharedPreferences.Editor.() -> Unit) {
 }
 
 
-fun String.showToast() {
-    val toast = Toast.makeText(MyApplication.mApplicationContext, this, Toast.LENGTH_LONG)
-    toast.show()
-}
 
-fun Int.showToast() {
-    val toast = Toast.makeText(MyApplication.mApplicationContext, this, Toast.LENGTH_LONG)
-    toast.show()
-}
 
 
 /**
@@ -118,4 +113,12 @@ fun dissmissSoft(isDismiss: Boolean, view: View) {
 
 fun getRequestBody(string: String?): RequestBody {
     return RequestBody.create(MediaType.parse("application/json; charset=utf-8"), string)
+}
+
+
+suspend fun  getA(){
+    withContext(Dispatchers.IO){
+       Log.i("wwb","aaaa")
+        return@withContext
+    }
 }

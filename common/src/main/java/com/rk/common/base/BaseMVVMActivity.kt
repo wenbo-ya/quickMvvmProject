@@ -5,15 +5,19 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import com.rk.common.databinding.ActivityBaseBinding
+import com.rk.common.network.ManagerDispose
 import com.rk.common.utils.StatusBarUtil
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
-abstract class BaseMVVMActivitys<VDB : ViewDataBinding, VM : ViewModel> : BaseActivity() {
+abstract class BaseMVVMActivity<VDB : ViewDataBinding, VM : ViewModel> : BaseActivity() {
 
     lateinit var bindView: VDB
     lateinit var vm: VM
@@ -35,7 +39,7 @@ abstract class BaseMVVMActivitys<VDB : ViewDataBinding, VM : ViewModel> : BaseAc
         lifecycle.addObserver(BaseLifeObserver(lifecycle))
         initView()
 //设置标题栏背景颜色
-      //  StatusBarUtil.setColor(this, Color.WHITE)
+        //  StatusBarUtil.setColor(this, Color.WHITE)
         StatusBarUtil.setDarkMode(this)
     }
 
@@ -70,5 +74,11 @@ abstract class BaseMVVMActivitys<VDB : ViewDataBinding, VM : ViewModel> : BaseAc
             window.statusBarColor = Color.TRANSPARENT
             window.navigationBarColor = Color.TRANSPARENT
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i("disposable","destroy")
+        ManagerDispose.clearDisposable()
     }
 }

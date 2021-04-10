@@ -1,5 +1,6 @@
 package com.rk.common.network
 
+import android.app.Application
 import android.content.Context
 import com.kaopiz.kprogresshud.KProgressHUD
 import io.reactivex.Observer
@@ -8,7 +9,7 @@ import io.reactivex.disposables.Disposable
 abstract class BaseObserver<T> : Observer<T> {
 
 
-  private var mProgressDialog: KProgressHUD?=null  //进度窗体
+    private var mProgressDialog: KProgressHUD? = null  //进度窗体
 
     constructor()
     constructor(context: Context) {
@@ -30,13 +31,12 @@ abstract class BaseObserver<T> : Observer<T> {
     }
 
     override fun onSubscribe(d: Disposable) {
-
+        ManagerDispose.addDisposable(d)
     }
 
     abstract fun onSuccess(t: T)
 
     abstract fun onBaseError(e: Throwable)
-
 
 
     /**
@@ -54,14 +54,14 @@ abstract class BaseObserver<T> : Observer<T> {
      */
     private fun showInfoProgressDialog(
         context: Context,
-        str: String?
+        string: String?
     ) {
         if (mProgressDialog == null) {
             mProgressDialog = KProgressHUD.create(context)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
             mProgressDialog!!.setCancellable(false)
         }
-        mProgressDialog!!.setLabel(str)
+        mProgressDialog!!.setLabel(string)
         if (!mProgressDialog!!.isShowing) {
             mProgressDialog!!.show()
         }
@@ -70,7 +70,7 @@ abstract class BaseObserver<T> : Observer<T> {
     /**
      * 当请求完成时调用（无论成功或失败）
      */
-    private  fun onFinish() {
+    private fun onFinish() {
         //如果没有加入进度条操作可以不调用super
         hideInfoProgressDialog()
     }

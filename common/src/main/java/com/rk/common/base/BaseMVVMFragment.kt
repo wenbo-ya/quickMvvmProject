@@ -19,7 +19,7 @@ import com.rk.common.R
 import com.rk.common.databinding.ActivityBaseBinding
 import com.rk.common.databinding.FragmentBaseBinding
 
-abstract class BaseMVVMFragments<VDB : ViewDataBinding, VM : ViewModel> : BaseFragment() {
+abstract class BaseMVVMFragment<VDB : ViewDataBinding, VM : ViewModel> : BaseFragment() {
     lateinit var vm: VM
      lateinit var bindView: VDB
     private lateinit var mBaseBinding: FragmentBaseBinding

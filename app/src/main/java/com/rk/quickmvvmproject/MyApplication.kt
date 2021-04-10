@@ -12,21 +12,16 @@ class MyApplication:Application() {
 
 
     companion object {
-        @SuppressLint("StaticFieldLeak")
         lateinit var mApplicationContext: Context
-        const val  BASE_URL="https://www.baidu.com/"
+        const val  BASE_URL="https://www.wanandroid.com/"
     }
     override fun onCreate() {
         super.onCreate()
         //多功能选择(单选，多选，日期)
         PickCityUtil.initPickView(applicationContext)
-
-
         mApplicationContext = applicationContext
         MultiDex.install(applicationContext)
-
         RetrofitManager.instance.apply {
-
             init(BASE_URL)
         }
     }
