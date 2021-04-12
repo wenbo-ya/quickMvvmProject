@@ -4,7 +4,10 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.view.View
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.ViewModel
+import com.bumptech.glide.Glide
 import com.rk.common.base.BaseActivity
 import com.rk.common.base.BaseMVVMActivity
 import com.rk.common.network.BaseObserver
@@ -20,26 +23,8 @@ import org.json.JSONObject
 class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
 
-    val viewClick = View.OnClickListener {
-        it.isClickable = false
-
-        clickDelay({
-            delay(1000L)
-            it.isClickable = true
-        }, {
-
-        })
-        when (it.id) {
-            R.id.tv_login -> {
-                getBanner()
-            }
-            R.id.iv_imageView -> {
-             //   toast("aaa")
-            }
-
-
-        }
-    }
+    val login="登录"
+    val testing="测试"
 
     private fun getBanner() {
         repository.getBanner()
@@ -52,6 +37,9 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
                 }
             })
     }
+
+
+val ivUrl="https://namixinyan.oss-cn-hangzhou.aliyuncs.com/temp/20201110/163333249079.png"
 
 
 }

@@ -26,17 +26,15 @@ import okhttp3.RequestBody
 import org.json.JSONObject
 
 
-//扩展函数
-fun ViewModel.toast(string: String?) {
+fun toast(string: String?) {
     val mToast = Toast.makeText(MyApplication.mApplicationContext, string, Toast.LENGTH_LONG)
-
     mToast.show()
 }
 
 
 //延迟
-fun ViewModel.clickDelay(block: suspend () -> Unit, error: suspend (Throwable) -> Unit) =
-    viewModelScope.launch(Dispatchers.Main) {
+fun clickDelay(block: suspend () -> Unit, error: suspend (Throwable) -> Unit) =
+    GlobalScope.launch(Dispatchers.Main) {
         try {
             block()
         } catch (error: Throwable) {
@@ -83,9 +81,6 @@ fun Context.shareData(block: SharedPreferences.Editor.() -> Unit) {
 }
 
 
-
-
-
 /**
  * EditText文字监听
  */
@@ -116,9 +111,6 @@ fun getRequestBody(string: String?): RequestBody {
 }
 
 
-suspend fun  getA(){
-    withContext(Dispatchers.IO){
-       Log.i("wwb","aaaa")
-        return@withContext
-    }
+fun viewClick(click: () -> Unit) {
+    click()
 }
